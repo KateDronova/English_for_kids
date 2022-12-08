@@ -552,12 +552,18 @@ document.getElementById("toggle").addEventListener("change", function() {
   });
 
 
-///// Go to sections
+///// Sections
 
+const theme = document.getElementById('theme');
 const cards = document.querySelectorAll('.card');
-const cardImages = document.querySelectorAll('.card img');
-const cardNames = document.querySelectorAll('.card h2');
+const cardImages = document.querySelectorAll('.card.front img');
+const cardNames = document.querySelectorAll('.card.front h2');
 const cardSounds = document.querySelectorAll('.card audio');
+const flipButtons = document.querySelectorAll('.card button');
+
+const cardBacks = document.querySelectorAll('.card.back');
+const cardBackImages = document.querySelectorAll('.card.back img');
+const cardBackNames = document.querySelectorAll('.card.back h2');
 
 const card1 = document.querySelector('.card.n1');
 const card2 = document.querySelector('.card.n2');
@@ -611,14 +617,55 @@ for (let cardImg of cardImages) {
   cardImg.setAttribute('src', cardsInfoList[1][i].image);
   i++;
 }
+
 i = 0;
 for (let cardName of cardNames) {
   cardName.innerHTML = cardsInfoList[1][i].word;
   i++;
 }
+
 i = 0;
-for (let cardName of cardSounds) {
-  cardName.innerHTML = cardsInfoList[1][i].word;
+for (let cardBackImg of cardBackImages) {
+  cardBackImg.setAttribute('src', cardsInfoList[1][i].image);
   i++;
 }
+
+i = 0;
+for (let cardBackName of cardBackNames) {
+  cardBackName.innerHTML = cardsInfoList[1][i].translation;
+  i++;
+}
+
+i = 0;
+for (let cardSound of cardSounds) {
+  cardSound.setAttribute('src', cardsInfoList[1][i].audioSrc);
+  i++;
+  cardSound.closest('div').addEventListener('click', function(event) {
+    if (!event.target.closest('button')) {
+      cardSound.play();
+    }
+  });
+}
+
+///// Training mode
+for (let flipButton of flipButtons) {
+  flipButton.addEventListener('click', function() {
+    flipButton.closest('div').classList.add('flip');
+    flipButton.closest('div').hidden = true;
+    flipButton.closest('div').nextElementSibling.hidden = false;
+  })
+}
+
+for (let cardBack of cardBacks) {
+  cardBack.addEventListener('mouseover', function() {
+    cardBack.previousSibling.classList.remove('flip');
+    cardBack.previousSibling.hidden = false;
+    cardBack.hidden = true;
+  });
+}
+// function fillSection1() {
+// }
+
+// fillSection1();
+
 
