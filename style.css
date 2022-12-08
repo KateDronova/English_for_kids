@@ -163,6 +163,12 @@ section img {
     height: 165px;
 }
 
+.card img {
+    object-fit: contain;
+    height: 180px;
+    width: 200px;
+}
+
 a {
     text-decoration: none;
     color: var(--red-color-light);
