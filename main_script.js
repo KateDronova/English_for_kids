@@ -553,17 +553,17 @@ document.getElementById("toggle").addEventListener("change", function() {
 
 
 ///// Sections
-
 const theme = document.getElementById('theme');
-const cards = document.querySelectorAll('.card');
-const cardImages = document.querySelectorAll('.card.front img');
-const cardNames = document.querySelectorAll('.card.front h2');
-const cardSounds = document.querySelectorAll('.card audio');
-const flipButtons = document.querySelectorAll('.card button');
 
-const cardBacks = document.querySelectorAll('.card.back');
-const cardBackImages = document.querySelectorAll('.card.back img');
-const cardBackNames = document.querySelectorAll('.card.back h2');
+const cards = document.querySelectorAll('.card');
+const cardImages = document.querySelectorAll('.front img');
+const cardNames = document.querySelectorAll('.front h2');
+const cardSounds = document.querySelectorAll('.front audio');
+const flipButtons = document.querySelectorAll('div button');
+
+const cardBacks = document.querySelectorAll('.back');
+const cardBackImages = document.querySelectorAll('.back img');
+const cardBackNames = document.querySelectorAll('.back h2');
 
 const card1 = document.querySelector('.card.n1');
 const card2 = document.querySelector('.card.n2');
@@ -650,22 +650,14 @@ for (let cardSound of cardSounds) {
 ///// Training mode
 for (let flipButton of flipButtons) {
   flipButton.addEventListener('click', function() {
-    flipButton.closest('div').classList.add('flip');
-    flipButton.closest('div').hidden = true;
-    flipButton.closest('div').nextElementSibling.hidden = false;
+    flipButton.closest('div').classList.add('clicked');
+    flipButton.closest('div').nextElementSibling.classList.remove('clicked');
   })
+  flipButton.closest('div').nextElementSibling.addEventListener('mouseout', function() {
+  if (!flipButton.closest('div').nextElementSibling.hidden) {
+    flipButton.closest('div').hidden = false;
+    flipButton.closest('div').classList.remove('clicked');
+    flipButton.closest('div').nextElementSibling.classList.add('clicked');
+  }
+});
 }
-
-for (let cardBack of cardBacks) {
-  cardBack.addEventListener('mouseover', function() {
-    cardBack.previousSibling.classList.remove('flip');
-    cardBack.previousSibling.hidden = false;
-    cardBack.hidden = true;
-  });
-}
-// function fillSection1() {
-// }
-
-// fillSection1();
-
-
