@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>English for Kids</title>
-    <link rel="stylesheet" href="./style.css">
-    <link type="image/png" sizes="16x16" rel="icon" href="./svg/sun.png">
-    <link type="image/png" sizes="32x32" rel="icon" href="./svg/sun.png">
-    <link type="image/png" sizes="96x96" rel="icon" href="./svg/sun.png">
-    <link type="image/png" sizes="120x120" rel="icon" href="./svg/sun.png">
+    <link rel="stylesheet" href="./dist/bundle.css">
+    <link type="image/png" sizes="16x16" rel="icon" href="./src/img/svg/sun.png">
+    <link type="image/png" sizes="32x32" rel="icon" href="./src/img/svg/sun.png">
+    <link type="image/png" sizes="96x96" rel="icon" href="./src/img/svg/sun.png">
+    <link type="image/png" sizes="120x120" rel="icon" href="./src/img/svg/sun.png">
 </head>
 <body>
     <header id="header">
@@ -30,24 +30,26 @@
         </svg>
         <nav class="menu" hidden>
             <ul>
-                <li class="opened"><a href="#">&#127968; Main page</a></li>
-                <li><a href="./section1.html">&#127911; Action (set A)</a></li>
-                <li><a href="./section.html">&#9924; Action (set B)</a></li>
-                <li><a href="./section.html">&#128055; Animal (set A)</a></li>
-                <li><a href="./section.html">&#128053; Animal (set B)</a></li>
-                <li><a href="./section.html">&thinsp;&#128066; Body</a></li>
-                <li><a href="./section.html">&#128090; Clothes</a></li>
-                <li><a href="./section.html">&#9749; Food (set A)</a></li>
-                <li><a href="./section.html">&#127826; Food (set B)</a></li>
-                <li><a href="./section.html">&#127804; Nature</a></li>
-                <li><a href="./section.html">&#128515; Emotions</a></li>
-                <li><a href="#">&#128200; STATISTICS</a></li>
+                <li id="nav-main" class="active"><a href="#main">&#127968; Main page</a></li>
+                <li id="nav-act1"><a href="#action1">&#127911; Action (set A)</a></li>
+                <li id="nav-act2"><a href="#action2">&#9924; Action (set B)</a></li>
+                <li id="nav-anim1"><a href="#animal1">&#128055; Animal (set A)</a></li>
+                <li id="nav-anim2"><a href="#animal2">&#128053; Animal (set B)</a></li>
+                <li id="nav-body"><a href="#body">&thinsp;&#128066; Body</a></li>
+                <li id="nav-cloth"><a href="#clothes">&#128090; Clothes</a></li>
+                <li id="nav-food1"><a href="#food1">&#9749; Food (set A)</a></li>
+                <li id="nav-food2"><a href="#food2">&#127826; Food (set B)</a></li>
+                <li id="nav-natur"><a href="#nature">&#127804; Nature</a></li>
+                <li id="nav-emot"><a href="#emotions">&#128515; Emotions</a></li>
+                <li id="nav-stat"><a href="#statistic">&#128200; STATISTICS</a></li>
             </ul>
         </nav>
         <div class="cover" hidden></div>
-        <h1>
-            <a href="#">English for Kids</a>
-        </h1>
+        <div class="headers">
+            <h1>
+                <a href="#main">English for Kids</a>
+            </h1>
+        </div>
         <input id="toggle" class="toggle" type="checkbox" role="switch" name="toggle" value="off">
         <label for="toggle" class="slot">
             <span class="slot__label">TRAIN</span>
@@ -55,69 +57,12 @@
         </label>
         <div class="curtain"></div>
     </header>
-    <main>
-        <section id="action-1">
-            <a href="./section1.html">
-                <h2 class="theme">Action (set A)</h2>
-                <img src="./svg/act-dance.jpg" alt="dance">
-            </a>
-        </section>
-        <section id="action-2">
-            <a href="./section.html">
-                <h2 class="theme">Action (set B)</h2>
-                <img src="./svg/act1.png" alt="run">
-            </a>
-        </section>
-        <section id="animal-1">
-            <a href="./section.html">
-                <h2 class="theme">Animal (set A)</h2>
-                <img src="./svg/animals3.png" alt="tiger">
-            </a>
-        </section>
-        <section id="nature">
-            <a href="./section.html">
-                <h2 class="theme">Nature</h2>
-                <img src="./svg/sun.png" alt="sun">
-            </a>
-        </section>
-        <section id="animal-2">
-            <a href="./section.html">
-                <h2 class="theme">Animal (set B)</h2>
-                <img src="./svg/animals1.png" alt="lion">
-            </a>
-        </section>
-        <section id="clothes">
-            <a href="./section.html">
-                <h2 class="theme">Clothes</h2>
-                <img src="./svg/clothes1.jpg" alt="dress">
-            </a>
-        </section>
-        <section id="food-1">
-            <a href="./section.html">
-                <h2 class="theme">Food (set A)</h2>
-                <img src="./svg/food0.jpg" alt="watermelon">
-            </a>
-        </section>
-        <section id="food-2">
-            <a href="./section.html">
-                <h2 class="theme">Food (set B)</h2>
-                <img src="./svg/food3.png" alt="juice">
-            </a>
-        </section>
-        <section id="emotions">
-            <a href="./section.html">
-                <h2 class="theme">Emotions</h2>
-                <img src="./svg/emot3.png" alt="in love">
-            </a>
-        </section>
-        <section id="body">
-            <a href="./section.html">
-                <h2 class="theme">Body</h2>
-                <img src="./svg/body_nose.png" alt="nose">
-            </a>
-        </section>
-    </main>
+    <div id="app"></div>
     <div class="cover" hidden></div>
-    <script src="main_script.js"></script>
+    <script src="./src/scripts/route.js"></script>
+    <script src="./src/scripts/router.js"></script>
+    <script src="./src/scripts/app.js"></script>
+    <script src="./dist/bundle.js"></script>
+    <script type="module" src="./src/scripts/section.js"></script>
 </body>
 </html>

@@ -1,3 +1,6 @@
+/*!*********************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/css/style.css ***!
+  \*********************************************************************/
 :root {
     --green-color: #87cb2c;
     --green-color-dark: #0e9a28;
@@ -54,12 +57,27 @@ header {
     flex-wrap: wrap;
 }
 
-h1{
+h1 {
     font-size: 4.5rem;
     margin: auto;
 }
 
-h2 {
+section h2 {
+    font-size: 1.8rem;
+    margin: 15px 0px;
+}
+
+.headers {
+    margin: auto;
+}
+
+.headers h2 {
+    font-size: 1.8rem;
+    margin: 5px 0px;
+}
+
+h3 {
+    font-size: 1.5rem;
     margin: 15px 0px;
 }
 
@@ -69,7 +87,7 @@ h2 {
     width: 60px;
     height: 60px;
     z-index: 4;
-    transition: transform 700ms ease-out;
+    transition: transform 500ms ease-out;
     overflow: visible;
 }
 
@@ -124,7 +142,7 @@ li:hover, li:focus {
     background-color: var(--green-color);
 }
 
-.opened {
+.active {
     font-weight: bold;
     background-color: var(--brown-color-trans);
 }
@@ -216,7 +234,7 @@ div.card {
     z-index: 2;
 }
 
-.back h2, .back img {
+.back h3, .back img {
     transform: rotateY(360deg);
 }
 .back{
@@ -324,11 +342,11 @@ input, h1 a {
     transform: translateX(3.5em);
 }
 
-.toggle:checked ~ .slot .slot__label, .slot__label:nth-child(2) {
+.toggle:checked ~ .slot .slot__label, .slot__label:last-child {
     transform: translateY(-50%) scaleY(0);
 }
 
-.toggle:checked ~ .slot .slot__label:nth-child(2) {
+.toggle:checked ~ .slot .slot__label:last-child {
     transform: translateY(-100%) scaleY(1);
 }
 
@@ -388,7 +406,7 @@ input, h1 a {
         text-align: start;
     }
 
-    h1 {
+    .headers {
         margin: 15px 0px 15px;
     }
 
