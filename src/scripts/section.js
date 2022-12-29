@@ -82,5 +82,3 @@ import { cardsInfoList } from './cards';
 //     cardName.hidden = true;
 //   }
 // }
-
-export { addFlipEffect, fillInTheContent };
