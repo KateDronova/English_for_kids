@@ -1,8 +1,11 @@
 
-// export { default as cardsInfoList } from "./cards";
-// import '../css/normalize';
+import '../css/normalize.css';
 import '../css/style.css';
-import { addFlipEffect, fillInTheContent } from "./section";
+import setRoutes from './app.js';
+setRoutes();
+
+import {setSection} from './section.js';
+setSection();
 
 ///// Mobile menu
 const burger = document.querySelector('.burger');
@@ -21,7 +24,7 @@ function closeTheMenu() {
   burgerCutlet.classList.toggle('unpack3');
   burgerTomato.classList.toggle('unpack4');
   menu.classList.toggle('move');
-  menu.addEventListener('transitionend', function(event) {
+  menu.addEventListener('transitionend', function() {
       menu.style.display = 'none';
       menu.hidden = true;
   });

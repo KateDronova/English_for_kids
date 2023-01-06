@@ -1,22 +1,22 @@
-import { cardsInfoList } from './cards';
+import cardsInfoList from "./cards.js";
 
 ///// Fill in the section for Training mode
-(function fillInTheContent() {
 
-  const j = 1;
-  const subheader = document.getElementById('subheader');
+const j = 1;
+const subheader = document.getElementById('subheader');
 
-  // const cards = document.querySelectorAll('.card');
-  const cardImages = document.querySelectorAll('.front img');
-  const cardNames = document.querySelectorAll('.front h3');
-  const cardSounds = document.querySelectorAll('.front audio');
-  // const cardBacks = document.querySelectorAll('.back');
-  const cardBackImages = document.querySelectorAll('.back img');
-  const cardBackNames = document.querySelectorAll('.back h3');
+// const cards = document.querySelectorAll('.card');
+const cardImages = document.querySelectorAll('.front img');
+const cardNames = document.querySelectorAll('.front h3');
+const cardSounds = document.querySelectorAll('.front audio');
+// const cardBacks = document.querySelectorAll('.back');
+const cardBackImages = document.querySelectorAll('.back img');
+const cardBackNames = document.querySelectorAll('.back h3');
 
+function fillInTheContent() {
+  let i = 0;
   subheader.textContent = cardsInfoList[j][i];
 
-  let i = 0;
   for (let cardImg of cardImages) {
     cardImg.setAttribute('src', cardsInfoList[j][i].image);
     i++;
@@ -50,11 +50,12 @@ import { cardsInfoList } from './cards';
       }
     });
   }
-})();
+}
 
-(function addFlipEffect() {
-  const flipButtons = document.querySelectorAll('div button');
 
+const flipButtons = document.querySelectorAll('div button');
+
+function addFlipEffect() {
   for (let flipButton of flipButtons) {
     flipButton.addEventListener('click', function () {
       flipButton.closest('div').classList.add('clicked');
@@ -68,7 +69,12 @@ import { cardsInfoList } from './cards';
       }
     });
   }
-})();
+}
+
+export function setSection() {
+  fillInTheContent();
+  addFlipEffect();
+}
 
 // ///// Playing mode
 

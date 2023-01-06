@@ -512,4 +512,4 @@ const cardsInfoList = [
     ]
   ]
 
-export { cardsInfoList };
+export default cardsInfoList;
