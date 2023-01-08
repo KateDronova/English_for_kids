@@ -15,6 +15,8 @@ const cardBackNames = document.querySelectorAll('.back h3');
 
 function fillInTheContent() {
   let i = 0;
+  // console.log(cardsInfoList);
+  // debugger;
   subheader.textContent = cardsInfoList[j][i];
 
   for (let cardImg of cardImages) {
@@ -71,10 +73,12 @@ function addFlipEffect() {
   }
 }
 
-export function setSection() {
+function setSection() {
   fillInTheContent();
   addFlipEffect();
 }
+
+export { setSection, fillInTheContent, addFlipEffect };
 
 // ///// Playing mode
 

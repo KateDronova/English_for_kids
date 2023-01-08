@@ -1,11 +1,32 @@
 
 import '../css/normalize.css';
 import '../css/style.css';
-import setRoutes from './app.js';
+// import setRoutes from './app.js';
+// setRoutes();
+
+import Route from "./route.js";
+import Router from "./router.js";
+
+function setRoutes() {
+  new Router([
+    new Route("main", "main.html", true),
+    new Route("action1", "action1.html"),
+    new Route("action2", "action2.html"),
+    new Route("animal1", "animal1.html"),
+    new Route("animal2", "animal2.html"),
+    new Route("body", "body.html"),
+    new Route("clothes", "clothes.html"),
+    new Route("food1", "food1.html"),
+    new Route("food2", "food2.html"),
+    new Route("nature", "nature.html"),
+    new Route("emotions", "emotions.html"),
+    new Route("statistic", "statistic.html"),
+  ]);
+}
 setRoutes();
 
-import {setSection} from './section.js';
-setSection();
+import { setSection, fillInTheContent, addFlipEffect } from './section.js';
+// setSection();
 
 ///// Mobile menu
 const burger = document.querySelector('.burger');
@@ -54,3 +75,4 @@ for (let item of menuItems) {
 document.getElementById("toggle").addEventListener("change", function() {
     this.setAttribute("aria-checked", this.checked);
   });
+// console.log('Hello,world');

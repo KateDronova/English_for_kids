@@ -15,10 +15,9 @@ module.exports = {
     // }, 
     output: {// Path and filename of your result bundle.
         path: path.resolve(__dirname, "dist"),
-        publicPath: '/English_for_kids/', //hz what it is
+        publicPath: '/', //hz what it is
         filename: "bundle.js",//Webpack will bundle all JavaScript into this file
         // filename: "[name].bundle.js",//Webpack will bundle all JavaScript into this file
-        clean: true, //it's good practice to clean the /dist folder before each build
     },
     module: {
         rules: [
@@ -80,8 +79,9 @@ module.exports = {
         })
     ],
     devServer: {
-        static: './dist', //tell the dev server where to look for files
-        watchFiles: path.join(__dirname, 'src'),
+        // static: './dist', //tell the dev server where to look for files
+        watchFiles: path.join(__dirname, './dist'),
+        compress: true,
         // port: 9000,
     },
     optimization: {
