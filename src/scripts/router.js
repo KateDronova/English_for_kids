@@ -48,7 +48,6 @@ Router.prototype = {
 };
 
 export default function Router(routes) {
-// function Router(routes) {
     try {
         if (!routes) {
             throw 'error: routes param is mandatory';

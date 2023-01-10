@@ -45,12 +45,6 @@ module.exports = {
                     },
                     // {
                     //     loader: 'postcss-loader' // Then we apply postCSS fixes like autoprefixer and minifying
-                    // },
-                    // {
-                    //     loader: 'sass-loader', // First we transform SASS to standard CSS
-                    //     options: {
-                    //         implementation: require("sass")
-                    //     }
                     // }
                 ]
             },
@@ -79,10 +73,8 @@ module.exports = {
         })
     ],
     devServer: {
-        // static: './dist', //tell the dev server where to look for files
         watchFiles: path.join(__dirname, './dist'),
         compress: true,
-        // port: 9000,
     },
     optimization: {
         // runtimeChunk: 'single', //we have more than one entrypoint on a single HTML page here
