@@ -9,15 +9,10 @@ module.exports = {
     mode: "development", //none, development or production(by default)
     devtool: "eval",
     entry: "./src/scripts/index.js",
-    // entry: {
-    //     index: "./src/scripts/index.js"
-    //     section: "./src/scripts/section.js"
-    // }, 
     output: {// Path and filename of your result bundle.
         path: path.resolve(__dirname, "dist"),
         publicPath: '/', //hz what it is
         filename: "bundle.js",//Webpack will bundle all JavaScript into this file
-        // filename: "[name].bundle.js",//Webpack will bundle all JavaScript into this file
     },
     module: {
         rules: [

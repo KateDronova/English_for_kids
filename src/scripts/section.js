@@ -1,83 +1,131 @@
-import cardsInfoList from "./cards.js";
+import cardsInfoList from './cards.js';
 
 ///// Fill in the section for Training mode
 function fillInTheContent(j) {
-  const subheader = document.getElementById("subHead");
-  const cardImages = document.querySelectorAll(".front img");
-  const cardNames = document.querySelectorAll(".front h3");
-  const cardSounds = document.querySelectorAll(".front audio");
-  const cardBackImages = document.querySelectorAll(".back img");
-  const cardBackNames = document.querySelectorAll(".back h3");
+  const subheader = document.getElementById('subHead');
+  const cardImages = document.querySelectorAll('.front img');
+  const cardNames = document.querySelectorAll('.front h3');
+  const cardSounds = document.querySelectorAll('.front audio');
+  const cardBackImages = document.querySelectorAll('.back img');
+  const cardBackNames = document.querySelectorAll('.back h3');
 
   subheader.textContent = cardsInfoList[j][0];
 
   let i = 1;
-  for (let cardImg of cardImages) {
-    cardImg.setAttribute("src", cardsInfoList[j][i].image);
+  cardImages.forEach((item) => {
+    item.setAttribute('src', cardsInfoList[j][i].image);
     i++;
-  }
+  })
 
   i = 1;
-  for (let cardName of cardNames) {
-    cardName.innerHTML = cardsInfoList[j][i].word;
+  cardNames.forEach((item) => {
+    item.innerHTML = cardsInfoList[j][i].word;
     i++;
-  }
+  })
 
   i = 1;
-  for (let cardBackImg of cardBackImages) {
-    cardBackImg.setAttribute("src", cardsInfoList[j][i].image);
+  cardBackImages.forEach((item) => {
+    item.setAttribute('src', cardsInfoList[j][i].image);
     i++;
-  }
+  })
 
   i = 1;
-  for (let cardBackName of cardBackNames) {
-    cardBackName.innerHTML = cardsInfoList[j][i].translation;
+  cardBackNames.forEach((item) => {
+    item.innerHTML = cardsInfoList[j][i].translation;
     i++;
-  }
+  })
 
   i = 1;
-  for (let cardSound of cardSounds) {
-    cardSound.setAttribute("src", cardsInfoList[j][i].audioSrc);
+  cardSounds.forEach((item) => {
+    item.setAttribute('src', cardsInfoList[j][i].audioSrc);
     i++;
-    cardSound.closest("div").addEventListener("click", function (event) {
-      if (!event.target.closest("button")) {
-        cardSound.play();
+    item.closest('div').addEventListener('click', function (event) {
+      if (!event.target.closest('button')) {
+        item.play();
       }
     });
-  }
+  })
+
+  addFlipEffect();
 }
 
 function addFlipEffect() {
-  const flipButtons = document.querySelectorAll("div button");
+  const flipButtons = document.querySelectorAll('div button');
 
   for (let flipButton of flipButtons) {
-    flipButton.addEventListener("click", function () {
-      flipButton.closest("div").classList.add("clicked");
-      flipButton.closest("div").nextElementSibling.classList.remove("clicked");
+    flipButton.addEventListener('click', function () {
+      flipButton.closest('div').classList.add('clicked');
+      flipButton.closest('div').nextElementSibling.classList.remove('clicked');
     });
     flipButton
-      .closest("div")
-      .nextElementSibling.addEventListener("mouseout", function () {
-        if (!flipButton.closest("div").nextElementSibling.hidden) {
-          flipButton.closest("div").hidden = false;
-          flipButton.closest("div").classList.remove("clicked");
-          flipButton.closest("div").nextElementSibling.classList.add("clicked");
+      .closest('div')
+      .nextElementSibling.addEventListener('mouseout', function () {
+        if (!flipButton.closest('div').nextElementSibling.hidden) {
+          flipButton.closest('div').hidden = false;
+          flipButton.closest('div').classList.remove('clicked');
+          flipButton.closest('div').nextElementSibling.classList.add('clicked');
         }
       });
   }
 }
 
-export{ fillInTheContent, addFlipEffect };
+function prepareForGame() {
+  if (document.getElementById('toggle').checked) {
+    document.querySelectorAll('h3').forEach((item) => {
+      item.hidden = true;
+    })
+    document.querySelectorAll('div button').forEach((item) => {
+      item.hidden = true;
+    })
+    document.querySelectorAll('.card .front img').forEach((item) => {
+      item.classList.add('down');
+    })
+    document.querySelectorAll('.front audio').forEach((item) => {
+      item.muted = true;
+    })
+    document.querySelectorAll('.card').forEach((item) => {
+      item.classList.add('down');
+    })
+    document.getElementById('startGameButton').hidden = false;
+    play();
+  } else {
+    document.querySelectorAll('h3').forEach((item) => {
+      item.hidden = false;
+    })
+    document.querySelectorAll('div button').forEach((item) => {
+      item.hidden = false;
+    })
+    document.querySelectorAll('.card .front img').forEach((item) => {
+      item.classList.remove('down');
+    })
+    document.querySelectorAll('.front audio').forEach((item) => {
+      item.muted = false;
+    })
+    document.querySelectorAll('.card').forEach((item) => {
+      item.classList.remove('down');
+    })
+    document.getElementById('startGameButton').hidden = true;
+  }
+}
 
-// ///// Playing mode
+function returnToTrainMode() {
+  if (document.getElementById('toggle').checked) {
+    document.getElementById('toggle').checked = false;
+  }
+}
 
-// const toggle = document.getElementById('toggle');
+function play() {
+  const playButton = document.getElementById('startGameButton');
+  playButton.addEventListener('click', () => {
+    playButton.classList.add('repeat');
+    playButton.textContent = 'repeat';
+  })
+  endGame(); ////////
+}
 
-// if (toggle.getAttribute('aria-checked') !== 'false') {
-//   for (let flipButton of flipButtons) {
-//     flipButton.hidden = true;
-//   }
-//   for (let cardName of cardNames) {
-//     cardName.hidden = true;
-//   }
-// }
+function endGame() {
+  document.getElementById('startGameButton').classList.remove('repeat'); //////////////SEE
+  document.getElementById('startGameButton').textContent = 'Start';
+}
+
+export { fillInTheContent, addFlipEffect, prepareForGame, returnToTrainMode };

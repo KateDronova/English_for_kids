@@ -1,6 +1,7 @@
 import "../css/normalize.css";
 import "../css/style.css";
 import { menuItems } from "./router.js";
+import { prepareForGame } from "./section.js";
 import setRoutes from "./app.js";
 setRoutes();
 
@@ -53,4 +54,5 @@ menuItems.forEach((item) => {
 ///// Toggle
 document.getElementById("toggle").addEventListener("change", function () {
   this.setAttribute("aria-checked", this.checked);
+  prepareForGame();
 });
