@@ -8,14 +8,14 @@ Route.prototype = {
     this.default = defaultRoute;
   },
   isActiveRoute: function (hashedPath) {
-    return hashedPath.replace("#", "") === this.name;
+    return hashedPath.replace('#', '') === this.name;
   },
 };
 
 export default function Route(name, htmlName, defaultRoute) {
   try {
     if (!name || !htmlName) {
-      throw "error: name and htmlName params are mandatories";
+      throw 'error: name and htmlName params are mandatories';
     }
     this.constructor(name, htmlName, defaultRoute);
   } catch (e) {

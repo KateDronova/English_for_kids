@@ -1,5 +1,5 @@
-import { fillInTheContent, returnToTrainMode } from "./section.js";
-const menuItems = document.querySelectorAll("nav li");
+import { fillInTheContent, returnToTrainMode } from './section.js';
+const menuItems = document.querySelectorAll('nav li');
 let numOfSection;
 
 Router.prototype = {
@@ -7,12 +7,12 @@ Router.prototype = {
   rootElem: undefined,
   constructor: function (routes) {
     this.routes = routes;
-    this.rootElem = document.getElementById("app");
+    this.rootElem = document.getElementById('app');
   },
   init: function () {
     let r = this.routes;
     (function (scope, r) {
-      window.addEventListener("hashchange", function () {
+      window.addEventListener('hashchange', function () {
         scope.hasChanged(scope, r);
       });
     })(this, r);
@@ -25,39 +25,39 @@ Router.prototype = {
         if (route.isActiveRoute(window.location.hash.substr(1))) {
           const currentPage = Array.from(menuItems).find(
             (item) => item.id === route.name
-          ); // Add "active" state to current section of menu
-          menuItems.forEach((item) => item.classList.remove("active"));
-          currentPage.classList.add("active");
+          ); // Add 'active' state to current section of menu
+          menuItems.forEach((item) => item.classList.remove('active'));
+          currentPage.classList.add('active');
 
           switch (route.name) {
-            case "action1":
+            case 'action1':
               numOfSection = 1;
               break;
-            case "action2":
+            case 'action2':
               numOfSection = 2;
               break;
-            case "animal1":
+            case 'animal1':
               numOfSection = 3;
               break;
-            case "nature":
+            case 'nature':
               numOfSection = 4;
               break;
-            case "animal2":
+            case 'animal2':
               numOfSection = 5;
               break;
-            case "clothes":
+            case 'clothes':
               numOfSection = 6;
               break;
-            case "food1":
+            case 'food1':
               numOfSection = 7;
               break;
-            case "food2":
+            case 'food2':
               numOfSection = 8;
               break;
-            case "emotions":
+            case 'emotions':
               numOfSection = 9;
               break;
-            case "body":
+            case 'body':
               numOfSection = 10;
               break;
           }
@@ -75,7 +75,7 @@ Router.prototype = {
   },
   goToRoute: function (htmlName) {
     (function (scope) {
-      let url = "views/" + htmlName,
+      let url = 'views/' + htmlName,
         xhttp = new XMLHttpRequest();
       xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
@@ -84,8 +84,8 @@ Router.prototype = {
           fillInTheContent(numOfSection);
         }
       };
-      console.log("url: ", url);
-      xhttp.open("GET", url, true);
+      console.log('url: ', url);
+      xhttp.open('GET', url, true);
       xhttp.send();
     })(this);
   },
@@ -94,7 +94,7 @@ Router.prototype = {
 export default function Router(routes) {
   try {
     if (!routes) {
-      throw "error: routes param is mandatory";
+      throw 'error: routes param is mandatory';
     }
     this.constructor(routes);
     this.init();
