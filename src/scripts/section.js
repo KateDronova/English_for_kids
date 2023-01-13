@@ -105,6 +105,11 @@ function prepareForGame() {
       item.classList.remove('down');
     });
     document.querySelector('.gameSet').classList.add('down2');
+
+    const playButton = document.getElementById('startGameButton');
+    const cards = document.querySelectorAll('.front');
+    const pointsScale = document.querySelector('.points');
+    endGame(playButton, cards, pointsScale);
   }
 }
 
@@ -128,6 +133,12 @@ function setSoundList() {
   return randomPlayList;
 }
 
+function displayCorrectAnswer(item, sound, sign, container) {
+  sound.play();
+  item.classList.add('inactive');
+  container.prepend(sign.cloneNode(false));
+}
+
 function play() {
   const playList = setSoundList();
   const playButton = document.getElementById('startGameButton');
@@ -136,37 +147,73 @@ function play() {
   const correctSign = document.querySelector('img.correct');
   const errorSign = document.querySelector('img.error');
   const pointsScale = document.querySelector('.points');
+  const cards = document.querySelectorAll('.front');
 
   playButton.addEventListener('click', () => {
-    playButton.classList.add('repeat');
     playButton.textContent = 'repeat';
-    playList[0].muted = false;
-    playList[0].play();
-    document.querySelectorAll('.front').forEach((item) => {
-      item.addEventListener('click', () => {
-        // console.log(item);
-        if (playList[0] === item.children[2]) {
-          correctSound.play();
-          item.classList.add('inactive');
-          console.log(correctSign, pointsScale);
-          pointsScale.prepend(correctSign.cloneNode(false));
-        } else {
-          errorSound.play();
-          pointsScale.prepend(errorSign.cloneNode(false));
-        }
+    playButton.classList.add('repeat');
+    if (playButton.classList.contains('repeat')) {
+      let i = 0;
+      playList[i].muted = false;
+      playList[i].play();
+      cards.forEach((item) => {
+        item.addEventListener('click', () => {
+          if (playList[i] === item.children[2]) {
+            displayCorrectAnswer(item, correctSound, correctSign, pointsScale);
+            playList[i].muted = true;
+            i++;
+            if (Array.from(cards).every((item) => item.classList.contains('inactive'))) {
+              showResult(pointsScale);
+            }
+            if (playList[i]) {
+              playList[i].muted = false;
+              playList[i].play();
+            }
+          } else {
+            errorSound.play();
+            pointsScale.prepend(errorSign.cloneNode(false));
+          }
+        });
       });
-    });
+    }
   });
-
-  // endGame(); ////////
 }
 
-// function endGame() {
-//   document.getElementById('startGameButton').classList.remove('repeat'); //////////////SEE
-//   document.getElementById('startGameButton').textContent = 'Start';
-//   document.querySelectorAll('.front').forEach((item) => {
-//     item.classList.remove('inactive');
-//   });
-// }
+function showResult(container) {
+  const cards = document.querySelectorAll('.front');
+  const playButton = document.getElementById('startGameButton');
+  const errors = Array.from(container.children).filter((item) => item.classList.contains('error'));
+  const resultText = document.querySelector('.results');
+  const successImg = document.querySelector('.goodResult');
+  const failImg = document.querySelector('.failResult');
+
+  document.querySelector('.cover').hidden = false;
+  
+  if (errors.length === 0) {
+    resultText.append('Success! No Wrong answers!');
+    document.querySelector('main').append(successImg, resultText);
+  } else {
+    resultText.append(`Try again! (${errors.length} wrong answers)`);
+    document.querySelector('main').append(failImg, resultText);
+  }
+  setTimeout(dropResult, 5000, successImg, failImg, resultText);
+  setTimeout(endGame, 5000, playButton, cards, container);
+}
+
+function dropResult(successImg, failImg, resultText) {
+  const hidingPlace = document.querySelector('.playAssets');
+  resultText.textContent = '';
+  hidingPlace.append(successImg, failImg, resultText);
+  document.querySelector('.cover').hidden = true;
+}
+
+function endGame(button, cards, container) {
+  button.classList.remove('repeat'); //////////////SEE
+  button.textContent = 'Start';
+  cards.forEach((item) => {
+    item.classList.remove('inactive');
+  });
+  Array.from(container.children).forEach((item) => item.remove());
+}
 
 export { fillInTheContent, addFlipEffect, prepareForGame, returnToTrainMode };
