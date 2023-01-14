@@ -70,6 +70,10 @@ function addFlipEffect() {
 }
 
 function prepareForGame() {
+  const playList = setSoundList();
+  const playButton = document.getElementById('startGameButton');
+  const cards = document.querySelectorAll('.front');
+
   if (document.getElementById('toggle').checked) {
     document.querySelectorAll('h3').forEach((item) => {
       item.hidden = true;
@@ -87,7 +91,8 @@ function prepareForGame() {
       item.classList.add('down');
     });
     document.querySelector('.gameSet').classList.remove('down2');
-    play();
+
+    play(playList);
   } else {
     document.querySelectorAll('h3').forEach((item) => {
       item.hidden = false;
@@ -106,17 +111,60 @@ function prepareForGame() {
     });
     document.querySelector('.gameSet').classList.add('down2');
 
-    const playButton = document.getElementById('startGameButton');
-    const cards = document.querySelectorAll('.front');
-    const pointsScale = document.querySelector('.points');
-    endGame(playButton, cards, pointsScale);
+    endGame(playButton, cards, playList);
   }
 }
 
-function returnToTrainMode() {
-  if (document.getElementById('toggle').checked) {
-    document.getElementById('toggle').checked = false;
-  }
+function play(playList) {
+  const playButton = document.getElementById('startGameButton');
+
+  playButton.addEventListener('click', () => {
+    const correctSound = document.querySelector('audio.correct');
+    const errorSound = document.querySelector('audio.error');
+    const correctSign = document.querySelector('img.correct');
+    const errorSign = document.querySelector('img.error');
+    const pointsScale = document.querySelector('.points');
+    const cards = document.querySelectorAll('.front');
+    let i = 0;
+    if (!playButton.classList.contains('repeat')) {
+      playButton.textContent = 'repeat';
+      playButton.classList.add('repeat');
+      playList[i].muted = false;
+      playList[i].play();
+      cards.forEach((item) => {
+        item.addEventListener('click', () => {
+          if (!item.classList.contains('inactive')) {
+            if (playList[i] === item.children[2]) {
+              displayCorrectAnswer(
+                item,
+                correctSound,
+                correctSign,
+                pointsScale
+              );
+              playList[i].muted = true;
+              i++;
+              if (playList[i]) {
+                playList[i].muted = false;
+                playList[i].play();
+              }
+              if (
+                Array.from(cards).every((item) =>
+                  item.classList.contains('inactive')
+                )
+              ) {
+                showResult(pointsScale, playList);
+              }
+            } else {
+              errorSound.play();
+              pointsScale.prepend(errorSign.cloneNode(false));
+            }
+          }
+        });
+      });
+    } else {
+      playList[i].play();
+    }
+  });
 }
 
 function setSoundList() {
@@ -139,81 +187,105 @@ function displayCorrectAnswer(item, sound, sign, container) {
   container.prepend(sign.cloneNode(false));
 }
 
-function play() {
-  const playList = setSoundList();
-  const playButton = document.getElementById('startGameButton');
-  const correctSound = document.querySelector('audio.correct');
-  const errorSound = document.querySelector('audio.error');
-  const correctSign = document.querySelector('img.correct');
-  const errorSign = document.querySelector('img.error');
-  const pointsScale = document.querySelector('.points');
-  const cards = document.querySelectorAll('.front');
-
-  playButton.addEventListener('click', () => {
-    playButton.textContent = 'repeat';
-    playButton.classList.add('repeat');
-    if (playButton.classList.contains('repeat')) {
-      let i = 0;
-      playList[i].muted = false;
-      playList[i].play();
-      cards.forEach((item) => {
-        item.addEventListener('click', () => {
-          if (playList[i] === item.children[2]) {
-            displayCorrectAnswer(item, correctSound, correctSign, pointsScale);
-            playList[i].muted = true;
-            i++;
-            if (Array.from(cards).every((item) => item.classList.contains('inactive'))) {
-              showResult(pointsScale);
-            }
-            if (playList[i]) {
-              playList[i].muted = false;
-              playList[i].play();
-            }
-          } else {
-            errorSound.play();
-            pointsScale.prepend(errorSign.cloneNode(false));
-          }
-        });
-      });
-    }
-  });
-}
-
-function showResult(container) {
+function showResult(container, playList) {
   const cards = document.querySelectorAll('.front');
   const playButton = document.getElementById('startGameButton');
-  const errors = Array.from(container.children).filter((item) => item.classList.contains('error'));
+  const errors = Array.from(container.children).filter((item) =>
+    item.classList.contains('error')
+  );
   const resultText = document.querySelector('.results');
   const successImg = document.querySelector('.goodResult');
   const failImg = document.querySelector('.failResult');
 
   document.querySelector('.cover').hidden = false;
-  
+
   if (errors.length === 0) {
     resultText.append('Success! No Wrong answers!');
     document.querySelector('main').append(successImg, resultText);
   } else {
-    resultText.append(`Try again! (${errors.length} wrong answers)`);
+    resultText.append(
+      `Try again! ${errors.length} wrong answe${
+        errors.length === 1 ? 'r' : 'rs'
+      }`
+    );
     document.querySelector('main').append(failImg, resultText);
   }
-  setTimeout(dropResult, 5000, successImg, failImg, resultText);
-  setTimeout(endGame, 5000, playButton, cards, container);
+  setTimeout(
+    dropResult,
+    5000,
+    successImg,
+    failImg,
+    resultText,
+    playButton,
+    cards,
+    playList
+  );
 }
 
-function dropResult(successImg, failImg, resultText) {
+function dropResult(
+  successImg,
+  failImg,
+  resultText,
+  playButton,
+  cards,
+  playList
+) {
   const hidingPlace = document.querySelector('.playAssets');
   resultText.textContent = '';
   hidingPlace.append(successImg, failImg, resultText);
   document.querySelector('.cover').hidden = true;
+
+  endGame(playButton, cards, playList);
 }
 
-function endGame(button, cards, container) {
-  button.classList.remove('repeat'); //////////////SEE
+function endGame(button, cards, playList) {
+  const correctSound = document.querySelector('audio.correct');
+  const errorSound = document.querySelector('audio.error');
+  const correctSign = document.querySelector('img.correct');
+  const errorSign = document.querySelector('img.error');
+  const pointsScale = document.querySelector('.points');
+  let i = 0;
+  Array.from(pointsScale.children).forEach((item) => item.remove());
+  button.classList.remove('repeat');
   button.textContent = 'Start';
   cards.forEach((item) => {
     item.classList.remove('inactive');
+    item.removeEventListener('click', () => {
+      if (!item.classList.contains('inactive')) {
+        if (playList[i] === item.children[2]) {
+          displayCorrectAnswer(item, correctSound, correctSign, pointsScale);
+          playList[i].muted = true;
+          i++;
+          if (playList[i]) {
+            playList[i].muted = false;
+            playList[i].play();
+          }
+          if (
+            Array.from(cards).every((item) =>
+              item.classList.contains('inactive')
+            )
+          ) {
+            showResult(pointsScale, playList);
+          }
+        } else {
+          errorSound.play();
+          pointsScale.prepend(errorSign.cloneNode(false));
+        }
+      }
+    });
   });
-  Array.from(container.children).forEach((item) => item.remove());
+  playList.length = 0;
+}
+
+function returnToTrainMode() {
+  // const playList = setSoundList();
+  // const playButton = document.getElementById('startGameButton');
+  // const cards = document.querySelectorAll('.front');
+  if (document.getElementById('toggle').checked) {
+    document.getElementById('toggle').checked = false;
+  }
+  prepareForGame();
+  // endGame(playButton, cards, playList);
 }
 
 export { fillInTheContent, addFlipEffect, prepareForGame, returnToTrainMode };
