@@ -1,4 +1,5 @@
 import cardsInfoList from './cards.js';
+import { fillInTheTableBasicInfo } from './statistics.js';
 
 ///// Fill in the section for Training mode
 function fillInTheContent(j) {
@@ -242,6 +243,7 @@ function returnToTrainMode() {
 		document.getElementById('toggle').checked = false;
 	}
 	prepareForGame(cards);
+	fillInTheTableBasicInfo();
 }
 
 export { fillInTheContent, addFlipEffect, playGame, returnToTrainMode };

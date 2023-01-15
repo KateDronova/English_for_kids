@@ -55,6 +55,4 @@ menuItems.forEach((item) => {
 document.getElementById('toggle').addEventListener('change', function () {
   this.setAttribute('aria-checked', this.checked);
   playGame();
-  // if (document.querySelectorAll('.card .front')) {
-  // }
 });

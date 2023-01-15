@@ -1,4 +1,5 @@
 import { fillInTheContent, returnToTrainMode } from './section.js';
+import { fillInTheTableBasicInfo } from './statistics.js';
 const menuItems = document.querySelectorAll('nav li');
 let numOfSection;
 
@@ -80,8 +81,12 @@ Router.prototype = {
 			xhttp.onreadystatechange = function () {
 				if (this.readyState === 4 && this.status === 200) {
 					scope.rootElem.innerHTML = this.responseText;
+					if (htmlName === 'statistics.html') {
+						fillInTheTableBasicInfo();
+					} else {
+						fillInTheContent(numOfSection);
+					}
 					returnToTrainMode();
-					fillInTheContent(numOfSection);
 				}
 			};
 			console.log('url:', url);
