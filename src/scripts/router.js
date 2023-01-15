@@ -84,7 +84,7 @@ Router.prototype = {
 					fillInTheContent(numOfSection);
 				}
 			};
-			console.log('url: ', url);
+			console.log('url:', url);
 			xhttp.open('GET', url, true);
 			xhttp.send();
 		})(this);

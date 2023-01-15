@@ -14,6 +14,6 @@ export default function setRoutes() {
     new Route('food2', 'commonSection.html', false),
     new Route('nature', 'commonSection.html', false),
     new Route('emotions', 'commonSection.html', false),
-    new Route('statistic', 'statistic.html', false)
+    new Route('statistics', 'statistics.html', false)
   ]);
 }
