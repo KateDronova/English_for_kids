@@ -28,10 +28,19 @@ function fillInTheTableBasicInfo() {
 
             td3.append(cardsInfoList[j][k].word);
             td4.append(cardsInfoList[j][k].translation);
-            td5.append(0);
-            td6.append(0);
-            td7.append(0);
-            td8.append(0);
+            
+            const arrOfClicks = localStorage.getItem(`${cardsInfoList[j][k].word}0`);
+            td5.append(arrOfClicks || 0);
+
+            const arrOfCorrects = localStorage.getItem(cardsInfoList[j][k].word);
+            td6.append(arrOfCorrects || 0);
+            
+            const arrOfProc = localStorage.getItem(`${cardsInfoList[j][k].word}2`);
+            td7.append(arrOfProc || '0%');
+
+            const arrOfMistakes = localStorage.getItem(`${cardsInfoList[j][k].word}1`);
+            td8.append(arrOfMistakes || 0); //wrong clicks
+
             newRow.append(td1, td2, td3, td4, td5, td6, td7, td8);
             tableRows.append(newRow);
             k++;
@@ -40,10 +49,10 @@ function fillInTheTableBasicInfo() {
                 k = 1;
             }
         }
-
-    // console.log(arrOfNo, arrOfCategories);
-
 	tableBody.append(tableRows);
+    
+    const resetButton = document.querySelector('.stat2');
+    resetButton.onclick = () => localStorage.clear();
 }
 
 export { fillInTheTableBasicInfo };

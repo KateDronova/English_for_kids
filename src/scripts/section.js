@@ -38,11 +38,26 @@ function fillInTheContent(j) {
 
 	i = 1;
 	cardSounds.forEach((item) => {
+		const currentWord = cardsInfoList[j][i].word;
+		localStorage.setItem(
+			`${currentWord}0`,
+			localStorage.getItem(`${currentWord}0`)
+				? +localStorage.getItem(`${currentWord}0`)
+				: 0
+		);
 		item.setAttribute('src', cardsInfoList[j][i].audioSrc);
 		i++;
-		item.closest('div').addEventListener('click', function (event) {
+		item.closest('div').addEventListener('click', (event) => {
 			if (!event.target.closest('button')) {
 				item.play();
+			}
+			if (!document.getElementById('toggle').checked) {
+				localStorage.setItem(
+					`${currentWord}0`,
+					localStorage.getItem(`${currentWord}0`)
+						? +localStorage.getItem(`${currentWord}0`) + 1
+						: 1
+				);
 			}
 		});
 	});
@@ -88,7 +103,7 @@ function prepareForGame(cards, pointsScale) {
 			item.classList.add('down');
 		});
 		document.querySelector('.gameSet').classList.remove('down2');
-    Array.from(pointsScale.children).forEach((item) => item.remove());
+		Array.from(pointsScale.children).forEach((item) => item.remove());
 	} else {
 		document.querySelectorAll('h3').forEach((item) => {
 			item.hidden = false;
@@ -120,46 +135,96 @@ function playGame() {
 
 	prepareForGame(cards, pointsScale);
 	if (document.getElementById('toggle').checked) {
-    let playList = setSoundList();
-		playOneRound(playButton, playList, cards, errorSound, errorSign, pointsScale, correctSound, correctSign);
-		} else {
+		let playList = setSoundList();
+		playOneRound(
+			playButton,
+			playList,
+			cards,
+			errorSound,
+			errorSign,
+			pointsScale,
+			correctSound,
+			correctSign
+		);
+	} else {
 		endGame(playButton, cards, pointsScale);
 	}
 }
 
-function playOneRound(playButton, playList,	cards, errorSound, errorSign,	pointsScale, correctSound, correctSign) {
+function playOneRound(
+	playButton,
+	playList,
+	cards,
+	errorSound,
+	errorSign,
+	pointsScale,
+	correctSound,
+	correctSign
+) {
 	let i = 0;
 	playButton.addEventListener('click', () => {
-    if (!playButton.classList.contains('repeat')) {
-      i = 0;
-      playButton.textContent = '↺';
-      playButton.classList.add('repeat');
-      playList = setSoundList();
-		playList[i].muted = false;
-		playList[i].play();
-		cards.forEach((item) => {
-			// localStorage.clear();
-			localStorage.setItem(`${playList[i]}`, '');
-			console.log(playList[i]);
-          item.onclick = () => {
-            if (!item.classList.contains('inactive')) {
-              if (playList[i] === item.children[2]) {//////
-                displayCorrectAnswer(item, pointsScale, correctSound, correctSign);
-                playList[i].muted = true;
-                i++;
-                if (playList[i]) {
-                  playList[i].muted = false;
-                  playList[i].play();
-                }
-              } else if (playList[i]) {
-                displayWrongAnswer(item, pointsScale, errorSound, errorSign);
-              }///////
-            }
-            if (Array.from(cards).every((item) => item.classList.contains('inactive'))) {
-              showResult(playButton, cards, playList, pointsScale);
-              i = 0;
-            }
-          };
+		if (!playButton.classList.contains('repeat')) {
+			i = 0;
+			playButton.textContent = '↺';
+			playButton.classList.add('repeat');
+			playList = setSoundList();
+			playList[i].muted = false;
+			playList[i].play();
+			let currentWord = playList[i].getAttribute('src').slice(6, -4); //ok
+			cards.forEach((item) => {
+				item.onclick = () => {
+					if (!item.classList.contains('inactive')) {
+						if (playList[i] === item.children[2]) {
+							displayCorrectAnswer(
+								item,
+								pointsScale,
+								correctSound,
+								correctSign,
+								currentWord
+							);
+							playList[i].muted = true;
+							i++;
+							if (playList[i]) {
+								playList[i].muted = false;
+								playList[i].play();
+								currentWord = playList[i].getAttribute('src').slice(6, -4);
+								localStorage.setItem(
+									currentWord,
+									localStorage.getItem(currentWord)
+										? +localStorage.getItem(currentWord)
+										: 0
+								);
+								localStorage.setItem(
+									`${currentWord}1`,
+									localStorage.getItem(`${currentWord}1`)
+										? +localStorage.getItem(`${currentWord}1`)
+										: 0
+								);
+								localStorage.setItem(
+									`${currentWord}2`,
+									localStorage.getItem(`${currentWord}2`)
+										? +localStorage.getItem(`${currentWord}2`)
+										: 0
+								);
+							}
+						} else if (playList[i]) {
+							displayWrongAnswer(
+								pointsScale,
+								errorSound,
+								errorSign,
+								currentWord
+							);
+						}
+					}
+					if (
+						Array.from(cards).every((item) =>
+							item.classList.contains('inactive')
+						)
+					) {
+						showResult(playButton, cards, playList, pointsScale);
+						i = 0;
+					}
+				};
 			});
 		} else {
 			playList[i].play();
@@ -181,19 +246,41 @@ function setSoundList() {
 	return randomPlayList;
 }
 
-function displayCorrectAnswer(item, pointsScale, correctSound, correctSign) {
+function displayCorrectAnswer(
+	item,
+	pointsScale,
+	correctSound,
+	correctSign,
+	currentWord
+) {
 	correctSound.play();
 	pointsScale.prepend(correctSign.cloneNode(false));
 	item.classList.add('inactive');
-	localStorage.setItem(`${item.children[1].textContent}`, `${localStorage.getItem(item.children[1])}1,`);
-	console.log(localStorage.getItem(`${item.children[1].textContent}`), item.children[1].textContent);
+	localStorage.setItem(
+		currentWord,
+		localStorage.getItem(currentWord)
+			? +localStorage.getItem(currentWord) + 1
+			: 1
+	);
+	localStorage.setItem(
+		`${currentWord}2`,
+		`${Math.round(
+			(+localStorage.getItem(currentWord) * 100) /
+				(+localStorage.getItem(currentWord) +
+					+localStorage.getItem(`${currentWord}1`))
+		)}%`
+	);
 }
 
-function displayWrongAnswer(item, pointsScale, errorSound, errorSign) {
+function displayWrongAnswer(pointsScale, errorSound, errorSign, currentWord) {
 	errorSound.play();
 	pointsScale.prepend(errorSign.cloneNode(false));
-	localStorage.setItem(`${item.children[1].textContent}`, `${localStorage.getItem(item.children[1])}0,`);
-	console.log(localStorage.getItem(`${item.children[1].textContent}`), item.children[1].textContent);
+	localStorage.setItem(
+		`${currentWord}1`,
+		localStorage.getItem(`${currentWord}1`)
+			? +localStorage.getItem(`${currentWord}1`) + 1
+			: 1
+	);
 }
 
 function showResult(playButton, cards, playList, pointsScale) {
@@ -205,23 +292,45 @@ function showResult(playButton, cards, playList, pointsScale) {
 	const failImg = document.querySelector('img.failResult');
 	const successAudio = document.querySelector('audio.goodResult');
 	const failAudio = document.querySelector('audio.failResult');
-  
+
 	resultText.textContent = '';
 	document.querySelector('.cover').hidden = false;
 
 	if (errors.length === 0) {
-    successAudio.play();
+		successAudio.play();
 		resultText.append('Success! No Wrong answers!');
 		document.querySelector('main').append(successImg, resultText);
 	} else {
-    failAudio.play();
-		resultText.append(`Try again! ${errors.length} wrong answe${errors.length === 1 ? 'r' : 'rs'}`);
+		failAudio.play();
+		resultText.append(
+			`Try again! ${errors.length} wrong answe${
+				errors.length === 1 ? 'r' : 'rs'
+			}`
+		);
 		document.querySelector('main').append(failImg, resultText);
 	}
-	setTimeout(dropResult, 5000, successImg, failImg, resultText, playButton, cards, playList, pointsScale);
+	setTimeout(
+		dropResult,
+		5000,
+		successImg,
+		failImg,
+		resultText,
+		playButton,
+		cards,
+		playList,
+		pointsScale
+	);
 }
 
-function dropResult(successImg, failImg, resultText, playButton, cards, playList, pointsScale) {
+function dropResult(
+	successImg,
+	failImg,
+	resultText,
+	playButton,
+	cards,
+	playList,
+	pointsScale
+) {
 	const hidingPlace = document.querySelector('.playAssets');
 	resultText.textContent = '';
 	hidingPlace.append(successImg, failImg, resultText);
@@ -241,7 +350,7 @@ function endGame(playButton, cards, playList) {
 	playButton.textContent = '&nbsp;&nbsp;&nbsp;Start&nbsp;&nbsp;&nbsp;';
 	const event = new MouseEvent('click');
 	const routeToMainPage = document.querySelector('h1 a');
-  routeToMainPage.dispatchEvent(event);
+	routeToMainPage.dispatchEvent(event);
 }
 
 function returnToTrainMode() {

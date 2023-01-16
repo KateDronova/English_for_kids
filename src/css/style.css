@@ -431,7 +431,7 @@ h1 a {
 }
 
 #startGameButton:hover {
-	transition-duration: 300ms;
+	transition-duration: 220ms;
 	box-shadow: 0px 0px 10px var(--brown-color);
 	cursor: pointer;
 }
@@ -585,6 +585,40 @@ td {
 	background-color: var(--brown-color-trans);
 }
 
+.buttonsWRapper {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	column-gap: 20px;
+}
+
+.stat {
+	font-weight: bold;
+	font-size: 1.4rem;
+	padding: 7px 30px;
+	box-shadow: 0px 0px 10px var(--green-color);
+	color: #fff;
+	background-color: var(--green-color-dark);
+	border-radius: 15px;
+	border: none;
+	box-shadow: 0px 0px 2px #000;
+}
+
+.stat2 {
+	background-color: var(--red-color);
+}
+
+.stat:hover {
+	transition-duration: 220ms;
+	cursor: pointer;
+	box-shadow: 1px 1px 2px #000;
+}
+
+.stat:active {
+	box-shadow: 0px 0px 1px #000;
+	transition-duration: 20ms;
+}
+
 @media screen and (width < 1100px) {
 	h1 {
 		font-size: 3.5rem;
@@ -634,17 +668,21 @@ td {
   }
 }
 
-@media screen and (width < 550px) {
+@media screen and (width < 600px) {
   h1 {
     font-size: 2.5rem;
   }
+  
+	.gameSet {
+		flex-direction: column;
+	}
 
   #subHead {
     font-size: 1.5rem;
   }
-
-	.gameSet {
-		flex-direction: column;
+  
+	.stat {
+	  font-size: 1.2rem;
 	}
 
   th {
@@ -664,16 +702,23 @@ td {
   }
 }
 
-@media screen and (width < 420px) {
-  /* td:nth-child(7), th:nth-child(7) {
-    display: none;
-  } */
-
+@media screen and (width < 460px) {
   td:nth-child(4), th:nth-child(4) {
     width: 60px;
   }
   
+  .buttonsWRapper {
+	column-gap: 15px;
+  }
+
+  .stat {
+	font-size: 0.9rem;
+	padding: 10px 16px;
+	border-radius: 12px;
+  }
+  
   td {
+    padding: 3px;
     font-size: 0.6rem;
   }
   
