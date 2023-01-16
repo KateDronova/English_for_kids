@@ -128,20 +128,23 @@ function playGame() {
 }
 
 function playOneRound(playButton, playList,	cards, errorSound, errorSign,	pointsScale, correctSound, correctSign) {
-  let i = 0;
+	let i = 0;
 	playButton.addEventListener('click', () => {
     if (!playButton.classList.contains('repeat')) {
       i = 0;
       playButton.textContent = '↺';
       playButton.classList.add('repeat');
       playList = setSoundList();
-			playList[i].muted = false;
-			playList[i].play();
-			cards.forEach((item) => {
+		playList[i].muted = false;
+		playList[i].play();
+		cards.forEach((item) => {
+			// localStorage.clear();
+			localStorage.setItem(`${playList[i]}`, '');
+			console.log(playList[i]);
           item.onclick = () => {
             if (!item.classList.contains('inactive')) {
-              if (playList[i] === item.children[2]) {
-                displayCorrectAnswer(item, pointsScale, correctSound,	correctSign);
+              if (playList[i] === item.children[2]) {//////
+                displayCorrectAnswer(item, pointsScale, correctSound, correctSign);
                 playList[i].muted = true;
                 i++;
                 if (playList[i]) {
@@ -149,8 +152,8 @@ function playOneRound(playButton, playList,	cards, errorSound, errorSign,	points
                   playList[i].play();
                 }
               } else if (playList[i]) {
-                displayWrongAnswer(pointsScale, errorSound, errorSign);
-              }
+                displayWrongAnswer(item, pointsScale, errorSound, errorSign);
+              }///////
             }
             if (Array.from(cards).every((item) => item.classList.contains('inactive'))) {
               showResult(playButton, cards, playList, pointsScale);
@@ -182,11 +185,15 @@ function displayCorrectAnswer(item, pointsScale, correctSound, correctSign) {
 	correctSound.play();
 	pointsScale.prepend(correctSign.cloneNode(false));
 	item.classList.add('inactive');
+	localStorage.setItem(`${item.children[1].textContent}`, `${localStorage.getItem(item.children[1])}1,`);
+	console.log(localStorage.getItem(`${item.children[1].textContent}`), item.children[1].textContent);
 }
 
-function displayWrongAnswer(pointsScale, errorSound, errorSign) {
+function displayWrongAnswer(item, pointsScale, errorSound, errorSign) {
 	errorSound.play();
 	pointsScale.prepend(errorSign.cloneNode(false));
+	localStorage.setItem(`${item.children[1].textContent}`, `${localStorage.getItem(item.children[1])}0,`);
+	console.log(localStorage.getItem(`${item.children[1].textContent}`), item.children[1].textContent);
 }
 
 function showResult(playButton, cards, playList, pointsScale) {
@@ -196,10 +203,10 @@ function showResult(playButton, cards, playList, pointsScale) {
 	const resultText = document.querySelector('.results');
 	const successImg = document.querySelector('img.goodResult');
 	const failImg = document.querySelector('img.failResult');
-  const successAudio = document.querySelector('audio.goodResult');
-  const failAudio = document.querySelector('audio.failResult');
+	const successAudio = document.querySelector('audio.goodResult');
+	const failAudio = document.querySelector('audio.failResult');
   
-  resultText.textContent = '';
+	resultText.textContent = '';
 	document.querySelector('.cover').hidden = false;
 
 	if (errors.length === 0) {
@@ -219,26 +226,26 @@ function dropResult(successImg, failImg, resultText, playButton, cards, playList
 	resultText.textContent = '';
 	hidingPlace.append(successImg, failImg, resultText);
 	document.querySelector('.cover').hidden = true;
-  Array.from(pointsScale.children).forEach((item) => item.remove());
+	Array.from(pointsScale.children).forEach((item) => item.remove());
 
 	endGame(playButton, cards, playList, pointsScale);
 }
 
 function endGame(playButton, cards, playList) {
-  cards.forEach((item) => {
-    item.classList.remove('inactive');
-    item.onclick = null;
-  });
+	cards.forEach((item) => {
+		item.classList.remove('inactive');
+		item.onclick = null;
+	});
 	playList.length = 0;
-  playButton.classList.remove('repeat');
+	playButton.classList.remove('repeat');
 	playButton.textContent = '&nbsp;&nbsp;&nbsp;Start&nbsp;&nbsp;&nbsp;';
-  const event = new MouseEvent('click');
-  const routeToMainPage = document.querySelector('h1 a');
+	const event = new MouseEvent('click');
+	const routeToMainPage = document.querySelector('h1 a');
   routeToMainPage.dispatchEvent(event);
 }
 
 function returnToTrainMode() {
-  const cards = document.querySelectorAll('.card .front');
+	const cards = document.querySelectorAll('.card .front');
 	if (document.getElementById('toggle').checked) {
 		document.getElementById('toggle').checked = false;
 	}
