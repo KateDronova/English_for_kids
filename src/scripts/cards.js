@@ -27,7 +27,7 @@ const cardsInfoList = [
         audioSrc: 'audio/draw.mp3'
       },
       {
-        word: 'fish',
+        word: 'fish.',
         translation: 'ловить рыбу',
         image: '../img/fish.jpg',
         audioSrc: 'audio/fish.mp3'
@@ -378,7 +378,7 @@ const cardsInfoList = [
         audioSrc: 'audio/bread.mp3'
       },
       {
-        word: 'chicken',
+        word: 'chicken.',
         translation: 'курица',
         image: '../img/chicken_food.jpg ',
         audioSrc: 'audio/chicken_food.mp3'
