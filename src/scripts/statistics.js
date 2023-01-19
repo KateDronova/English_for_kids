@@ -89,7 +89,6 @@ function repeatDifficultWords() {
       arrOfWordsToRepeat.push(item.cells[2].innerHTML);
     }
   });
-  //   console.log(arrOfWordsToRepeat); /////
 
   const event = new MouseEvent('click'); ///return list to right view
   Array.from(document.querySelectorAll('.descending'))[0].dispatchEvent(event);
@@ -130,7 +129,6 @@ function workOutWords(arrOfWordsToRepeat) {
       }
     });
   }
-  console.log(arrOfCardsToRepeat);
 
   arrOfCardsToRepeat.map((item) => {
     const card = document.createElement('div');
@@ -153,7 +151,7 @@ function workOutWords(arrOfWordsToRepeat) {
     const front = document.createElement('div');
     front.classList.add('front');
 
-	const name = document.createElement('h3');
+    const name = document.createElement('h3');
     name.append(item.word);
 
     const audio = document.createElement('audio');
@@ -174,31 +172,7 @@ function workOutWords(arrOfWordsToRepeat) {
     });
   });
 
-  // const cardImages = document.querySelectorAll('.front img');
-  // const cardNames = document.querySelectorAll('.front h3');
-  // const cardSounds = document.querySelectorAll('.front audio');
-  // const cardBackImages = document.querySelectorAll('.back img');
-  // const cardBackNames = document.querySelectorAll('.back h3');
-
-  // let i = 1;
-  // cardImages.forEach((item) => {
-  // 	item.setAttribute('src', cardsInfoList[j][i].image);
-  // 	i++;
-  // });
-
-  // i = 1;
-  // cardSounds.forEach((item) => {
-  // 	item.setAttribute('src', cardsInfoList[j][i].audioSrc);
-  // 	i++;
-  // 	item.closest('div').addEventListener('click', (event) => {
-  // 		if (!event.target.closest('button')) {
-  // 			item.play();
-  // 		}
-  // 	});
-  // });
-
   addFlipEffect();
-  //   console.log(cards);
   return cards;
 }
 
