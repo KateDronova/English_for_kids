@@ -75,9 +75,9 @@ section h2 {
   text-align: center;
 }
 
-h3 {
+.front h3 {
   font-size: 1.5rem;
-  margin: 15px 0px;
+  margin: 5px 0px 15px;
 }
 
 .burger {
@@ -208,7 +208,7 @@ div.card {
   position: relative;
   bottom: 32px;
   perspective: 1000px;
-  height: 250px;
+  height: 258px;
   max-width: 280px;
   min-width: 230px;
   transition: transform 600ms ease-in-out;
@@ -273,7 +273,7 @@ button:hover {
 .card button {
   position: relative;
   left: 90px;
-  bottom: 32px;
+  bottom: 13px;
   font-weight: bold;
   font-size: 1.8rem;
   width: 40px;

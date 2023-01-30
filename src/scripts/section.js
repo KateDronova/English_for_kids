@@ -151,6 +151,10 @@ function playGame() {
   }
 }
 
+function playSound(sound) {
+  sound.play();
+}
+
 function playOneRound(
   playButton,
   playList,
@@ -170,7 +174,7 @@ function playOneRound(
       playList = setSoundList();
       playList[i].muted = false;
       playList[i].play();
-      let currentWord = playList[i].getAttribute('src').slice(6, -4); //ok
+      let currentWord = playList[i].getAttribute('src').slice(16, -4); //ok
       cards.forEach((item) => {
         item.onclick = () => {
           if (!item.classList.contains('inactive')) {
@@ -186,8 +190,10 @@ function playOneRound(
               i++;
               if (playList[i]) {
                 playList[i].muted = false;
-                playList[i].play();
-                currentWord = playList[i].getAttribute('src').slice(6, -4);
+
+                setTimeout( playSound(playList[i]), 1000 );
+
+                currentWord = playList[i].getAttribute('src').slice(16, -4);
                 localStorage.setItem(
                   currentWord,
                   localStorage.getItem(currentWord)
@@ -351,6 +357,8 @@ function endGame(playButton, cards, playList) {
   const event = new MouseEvent('click');
   const routeToMainPage = document.querySelector('h1 a');
   routeToMainPage.dispatchEvent(event);
+
+  returnToTrainMode();
 }
 
 function returnToTrainMode() {

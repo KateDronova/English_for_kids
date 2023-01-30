@@ -1,15 +1,14 @@
 /* eslint-disable no-undef */
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
   devtool: 'eval',
   entry: './src/scripts/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
+    publicPath: './',
     filename: 'bundle.js',
   },
   module: {
@@ -54,13 +53,21 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'index.html'),
-      filename: 'index.html',
+      filename: 'index.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'public/views/commonSection.html'),
+      filename: 'commonSection.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'public/views/main.html'),
+      filename: 'main.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, 'public/views/statistics.html'),
+      filename: 'statistics.html'
     }),
   ],
-  devServer: {
-    watchFiles: path.join(__dirname, './dist'),
-    compress: true,
-  },
   optimization: {
     minimize: false,
   },
