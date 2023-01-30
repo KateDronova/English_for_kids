@@ -38,10 +38,10 @@ const cardsInfoList = [
       audioSrc: 'audio/draw.mp3',
     },
     {
-      word: 'fish.',
+      word: 'fish (action)',
       translation: 'ловить рыбу',
-      image: '../img/fish.jpg',
-      audioSrc: 'audio/fish.mp3',
+      image: '../img/fish (action).jpg',
+      audioSrc: 'audio/fish (action).mp3',
     },
     {
       word: 'fly',
@@ -128,10 +128,10 @@ const cardsInfoList = [
       audioSrc: 'audio/chick.mp3',
     },
     {
-      word: 'chicken',
+      word: 'chicken (animal)',
       translation: 'курица',
-      image: '../img/chicken.jpg',
-      audioSrc: 'audio/chicken.mp3',
+      image: '../img/chicken (animal).jpg',
+      audioSrc: 'audio/chicken (animal).mp3',
     },
     {
       word: 'dog',
@@ -224,10 +224,10 @@ const cardsInfoList = [
       audioSrc: 'audio/bird.mp3',
     },
     {
-      word: 'fish',
+      word: 'fish (animal)',
       translation: 'рыба',
-      image: '../img/fish1.jpg',
-      audioSrc: 'audio/fish.mp3',
+      image: '../img/fish (animal).jpg',
+      audioSrc: 'audio/fish (animal).mp3',
     },
     {
       word: 'frog',
@@ -389,10 +389,10 @@ const cardsInfoList = [
       audioSrc: 'audio/bread.mp3',
     },
     {
-      word: 'chicken.',
+      word: 'chicken (food)',
       translation: 'курица',
-      image: '../img/chicken_food.jpg ',
-      audioSrc: 'audio/chicken_food.mp3',
+      image: '../img/chicken (food).jpg ',
+      audioSrc: 'audio/chicken (food).mp3',
     },
     {
       word: 'cake',
