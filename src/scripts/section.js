@@ -174,7 +174,7 @@ function playOneRound(
       playList = setSoundList();
       playList[i].muted = false;
       playList[i].play();
-      let currentWord = playList[i].getAttribute('src').slice(16, -4); //ok
+      let currentWord = playList[i].getAttribute('src').slice(7, -4);
       cards.forEach((item) => {
         item.onclick = () => {
           if (!item.classList.contains('inactive')) {
@@ -193,7 +193,7 @@ function playOneRound(
 
                 setTimeout( playSound(playList[i]), 1000 );
 
-                currentWord = playList[i].getAttribute('src').slice(16, -4);
+                currentWord = playList[i].getAttribute('src').slice(7, -4);
                 localStorage.setItem(
                   currentWord,
                   localStorage.getItem(currentWord)

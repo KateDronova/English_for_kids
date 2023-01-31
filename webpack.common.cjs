@@ -16,8 +16,6 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
-        // use: {
-        // },
         loader: 'babel-loader',
         options: {
           presets: ['@babel/preset-env'],
@@ -38,14 +36,14 @@ module.exports = {
         test: /\.(png|jp(e*)g|gif|svg)$/i,
         type: 'asset/resource',
         generator: {
-          filename: 'images/[name].[ext]'
+          filename: 'images/[name][ext]'
         },
       },
       {
-        test: /\.audio$/i,
+        test: /\.mp3$/i,
         type: 'asset/resource',
         generator: {
-          filename: 'audio/[name].[ext]'
+          filename: 'audio/[name][ext]'
         },
       },
     ],
