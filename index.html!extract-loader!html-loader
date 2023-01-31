@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English for Kids</title>
+    <link type="image/png" sizes="16x16" rel="icon" href="./public/img/main/sun.png">
+    <link type="image/png" sizes="32x32" rel="icon" href="./public/img/main/sun.png">
+    <link type="image/png" sizes="96x96" rel="icon" href="./public/img/main/sun.png">
+    <link type="image/png" sizes="120x120" rel="icon" href="./public/img/main/sun.png">
+</head>
+
+<body>
+    <header id="header">
+        <svg class="burger">
+            <rect id="down" x="5" y="43" rx="25" ry="17" width="50" height="16"
+                style="fill:#c4a82b;stroke:#000;stroke-width:1" />
+            <ellipse id="salad" cx="30" cy="46" rx="30" ry="5.5" fill="#0e9a28" />
+            <ellipse id="cutlet" cx="30" cy="38" rx="28" ry="10" fill="#7a6403" />
+            <ellipse id="tomato" cx="30" cy="30" rx="26" ry="6" fill="#ed4f00" />
+            <rect id="up" x="2" y="12" rx="25" ry="17" width="56" height="20"
+                style="fill:#c4a82b;stroke:#000;stroke-width:1" />
+            <ellipse cx="13" cy="18" rx="1.5" ry="1" fill="#fff" />
+            <ellipse cx="17" cy="13" rx="1.5" ry="1" fill="#fff" />
+            <ellipse cx="22" cy="16" rx="1.5" ry="1" fill="#fff" />
+            <ellipse cx="27" cy="21" rx="1.5" ry="1" fill="#fff" />
+            <ellipse cx="30" cy="12" rx="1.5" ry="1" fill="#fff" />
+            <ellipse cx="34" cy="15" rx="1.5" ry="1" fill="#fff" />
+            <ellipse cx="41" cy="20" rx="1.5" ry="1" fill="#fff" />
+            <ellipse cx="43" cy="13" rx="1.5" ry="1" fill="#fff" />
+            <ellipse cx="49" cy="17" rx="1.5" ry="1" fill="#fff" />
+        </svg>
+        <nav class="menu" hidden>
+            <ul>
+                <li id="main" class="active"><a href="#main">&#127968; Main page</a></li>
+                <li id="action1"><a href="#action1">&#127911; Action (set A)</a></li>
+                <li id="action2"><a href="#action2">&#9924; Action (set B)</a></li>
+                <li id="animal1"><a href="#animal1">&#128055; Animal (set A)</a></li>
+                <li id="animal2"><a href="#animal2">&#128053; Animal (set B)</a></li>
+                <li id="body"><a href="#body">&thinsp;&#128066; Body</a></li>
+                <li id="clothes"><a href="#clothes">&#128090; Clothes</a></li>
+                <li id="food1"><a href="#food1">&#9749; Food (set A)</a></li>
+                <li id="food2"><a href="#food2">&#127826; Food (set B)</a></li>
+                <li id="nature"><a href="#nature">&#127804; Nature</a></li>
+                <li id="emotions"><a href="#emotions">&#128515; Emotions</a></li>
+                <li id="statistics"><a href="#statistics">&#128200; STATISTICS</a></li>
+            </ul>
+        </nav>
+        <div class="cover" hidden></div>
+        <div class="headers">
+            <h1>
+                <a href="#main">English for Kids</a>
+            </h1>
+        </div>
+        <input id="toggle" class="toggle" type="checkbox" role="switch" name="toggle" value="off">
+        <label for="toggle" class="slot">
+            <span class="slot__label">TRAIN</span>
+            <span class="slot__label">PLAY</span>
+        </label>
+        <div class="curtain"></div>
+    </header>
+    <div id="app"></div>
+    <div class="cover" hidden></div>
+</body>
+
+</html>
