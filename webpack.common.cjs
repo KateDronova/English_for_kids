@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 module.exports = {
   devtool: 'eval',
@@ -35,13 +35,25 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpe?g|gif|svg)$/,
+        test: /\.(png|jpe?g|gif|svg)$/i,
         use: [
           {
-            loader: 'file-loader',
+            loader: 'file?name=[path][name].[ext]',
             options: {
-              outputPath: 'img',
+              outputPath: path.join(__dirname, 'src/img'),
             },
+            // loader: 'file-loader',
+            // options: {
+            //   outputPath: 'img',
+            // },
+          },
+        ],
+      },
+      {
+        test: /\.html$/i,
+        use: [
+          {
+            loader: 'file-loader?name=[path][name].[ext]!extract-loader!html-loader',
           },
         ],
       },
