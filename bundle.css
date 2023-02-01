@@ -1051,6 +1051,11 @@ button.sort {
 }
 
 @media screen and (width < 600px) {
+  td:nth-child(3),
+  th:nth-child(3) {
+    width: 50px;
+  }
+
   h1 {
     font-size: 2.5rem;
   }
@@ -1094,11 +1099,6 @@ button.sort {
 }
 
 @media screen and (width < 500px) {
-  td:nth-child(3),
-  th:nth-child(3) {
-    width: 50px;
-  }
-
   td:nth-child(4),
   th:nth-child(4) {
     width: 60px;
