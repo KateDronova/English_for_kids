@@ -565,10 +565,10 @@ div.card {
 }
 
 .card img {
-  object-fit: contain;
-  height: 150px;
+  object-fit: cover;
+  height: 140px;
   width: 200px;
-  margin-top: 15px;
+  margin-top: 25px;
   transition: transform 500ms ease-in-out;
 }
 
@@ -1050,7 +1050,12 @@ button.sort {
   }
 }
 
-@media screen and (width < 600px) {
+@media screen and (width < 640px) {
+  td:nth-child(3),
+  th:nth-child(3) {
+    width: 50px;
+  }
+
   h1 {
     font-size: 2.5rem;
   }
