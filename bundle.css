@@ -1050,7 +1050,7 @@ button.sort {
   }
 }
 
-@media screen and (width < 600px) {
+@media screen and (width < 640px) {
   td:nth-child(3),
   th:nth-child(3) {
     width: 50px;
